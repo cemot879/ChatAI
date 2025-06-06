@@ -3,7 +3,8 @@ from twilio.twiml.messaging_response import MessagingResponse
 import openai
 import os
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# Konfigurasi client baru (v1.0+)
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 app = Flask(__name__)
 
@@ -14,16 +15,16 @@ def whatsapp_reply():
     msg = resp.message()
 
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
-                {"role": "system", "content": "You are ChatAI, a friendly and helpful assistant on WhatsApp."},
+                {"role": "system", "content": "You are ChatAI, a helpful assistant."},
                 {"role": "user", "content": incoming_msg}
             ]
         )
         reply = response.choices[0].message.content
     except Exception as e:
-        reply = "Maaf, terjadi kesalahan: " + str(e)
+        reply = "Maaf, terjadi kesalahan:\n\n" + str(e)
 
     msg.body(reply)
     return str(resp)
