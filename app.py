@@ -1,4 +1,4 @@
-from flask import Flask, request
+nofrom flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 import openai
 import os
@@ -24,8 +24,7 @@ def whatsapp_reply():
         )
         reply = response.choices[0].message.content
     except Exception as e:
-        reply = "Maaf, terjadi kesalahan:\n\n" + str(e)
-
+        reply = "Halo! Ini adalah respon dari ChatAI bot."
     msg.body(reply)
     return str(resp)
 
