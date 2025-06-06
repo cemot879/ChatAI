@@ -16,7 +16,7 @@ def whatsapp_reply():
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are ChatAI, a helpful assistant."},
                 {"role": "user", "content": incoming_msg}
